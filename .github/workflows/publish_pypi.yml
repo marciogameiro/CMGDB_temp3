@@ -1,36 +1,71 @@
-name: CMake
+# Build and publish Python distribution package to TestPyPI and PyPI
+name: Build and publish wheels
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-env:
-  BUILD_TYPE: Release
+    branches:
+      - master
+    tags:
+      - v* # Push events to v* tags
+  # pull_request:
+  #   branches:
+  #     - master
+  # Manual run
+  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: windows-latest
+  # Build wheels for macOS, Linux, and Windows
+  build_wheels:
+    name: Wheel for ${{ matrix.os }}-cp${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      # Build the other wheels even if one fails
+      fail-fast: false
+      matrix:
+        # os: [ubuntu-latest]
+        os: [windows-latest]
+        # os: [windows-latest, ubuntu-18.04, macos-latest]
+        # os: [windows-latest, ubuntu-latest, macos-latest]
+        python: [37] # [36, 37, 38, 39]
 
     steps:
-        
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-        submodules: recursive
-        
-    - name: Install boost
-      uses: MarkusJx/install-boost@v2.0.0
-      id: install-boost
-      with:
-        boost_version: 1.72.0
-        platform_version: 2019
-    
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-      env:
-        BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+      - name: Install boost for Windows
+        uses: MarkusJx/install-boost@v2.1.0
+        id: install-boost
+        with:
+          boost_version: 1.78.0
+          platform_version: 2019
+          toolset: msvc
+        if: runner.os == 'Windows'
 
-    - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      # - name: Install libraries for Windows
+      #   run: |
+      #     vcpkg install eigen3
+      #     vcpkg install gmp
+      #   shell: pwsh
+      #   if: runner.os == 'Windows'
+
+      # - name: Install the SDSL library
+      #   run: |
+      #     git clone https://github.com/simongog/sdsl-lite.git
+      #     cd sdsl-lite
+      #     ./install.sh
+      #   shell: pwsh
+      #   if: runner.os == 'Windows'
+
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Configure CMake
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        env:
+          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}

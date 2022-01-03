@@ -52,8 +52,8 @@ jobs:
 
       - name: Install libraries on Windows
         run: |
-          ./vcpkg install eigen3
-          ./vcpkg install gmp
+          vcpkg install eigen3
+          vcpkg install gmp
         shell: pwsh
         if: runner.os == 'Windows'
 

@@ -20,15 +20,15 @@ endif(APPLE)
 
 add_subdirectory(pybind11)
 
-find_package(Boost COMPONENTS chrono thread serialization REQUIRED)
-
-# CMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
-# find_package(gmp REQUIRED)
-
 message("Debug:")
 message("BOOST_ROOT IS ${BOOST_ROOT}")
 message("Boost_INCLUDE_DIR IS ${Boost_INCLUDE_DIR}")
 message("Boost_LIBRARIES IS ${Boost_LIBRARIES}")
+
+find_package(Boost COMPONENTS chrono thread serialization REQUIRED)
+
+# CMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
+# find_package(gmp REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
 

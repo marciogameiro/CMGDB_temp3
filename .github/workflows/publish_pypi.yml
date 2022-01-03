@@ -57,7 +57,7 @@ jobs:
         shell: pwsh
         if: runner.os == 'Windows'
 
-      - name: Install the SDSL library on on Windows
+      - name: Install the SDSL library on Windows
         run: |
           git clone https://github.com/simongog/sdsl-lite.git
           cd sdsl-lite
@@ -65,10 +65,36 @@ jobs:
         shell: pwsh
         if: runner.os == 'Windows'
 
-      - name: Configure CMake
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-        env:
-          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+      # - name: Configure CMake
+      #   run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      #   env:
+      #     BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
 
-      - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      # - name: Build
+      #   run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel
+
+      - name: Build wheel
+        run:
+          python -m cibuildwheel --output-dir wheelhouse
+        env:
+          CIBW_BUILD: cp${{ matrix.python }}-*
+          CIBW_ARCHS_WINDOWS: auto64
+          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+          # CIBW_ENVIRONMENT: "BOOST_INCLUDE=${BOOST_ROOT}"
+          # CIBW_ENVIRONMENT: Boost_INCLUDE_DIR=${BOOST_ROOT}/include
+
+      - name: Show files
+        run: ls -lh wheelhouse
+        shell: bash
+
+      - name: Verify clean directory
+        run: git diff --exit-code
+        shell: bash
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          path: wheelhouse/*.whl

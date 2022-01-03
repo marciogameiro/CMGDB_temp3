@@ -43,17 +43,17 @@ link_directories (
   /usr/local/lib
   ${USER_LIBRARY_PATH} )
 
-# pybind11_add_module(_cmgdb src/CMGDB/_cmgdb/CMGDB.cpp)
+pybind11_add_module(_cmgdb src/CMGDB/_cmgdb/CMGDB.cpp)
 
-# target_link_libraries (
-#   _cmgdb PRIVATE
-#   Boost::chrono
-#   Boost::thread
-#   Boost::serialization
-#   sdsl )
+target_link_libraries (
+  _cmgdb PRIVATE
+  Boost::chrono
+  Boost::thread
+  Boost::serialization
+  sdsl )
 
-add_executable(test src/main.cpp)
+# add_executable(test src/main.cpp)
 
-target_link_libraries(test ${Boost_LIBRARIES})
+# target_link_libraries(test ${Boost_LIBRARIES})
 
-target_compile_definitions(test PRIVATE -DBOOST_NO_AUTO_PTR -DBOOST_ALL_NO_LIB)
+# target_compile_definitions(test PRIVATE -DBOOST_NO_AUTO_PTR -DBOOST_ALL_NO_LIB)

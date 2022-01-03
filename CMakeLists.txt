@@ -46,7 +46,7 @@ link_directories (
   /usr/local/lib
   ${USER_LIBRARY_PATH} )
 
-pybind11_add_module(_cmgdb src/CMGDB/_cmgdb/CMGDB.cpp)
+# pybind11_add_module(_cmgdb src/CMGDB/_cmgdb/CMGDB.cpp)
 
 target_link_libraries (
   _cmgdb PRIVATE
@@ -55,7 +55,7 @@ target_link_libraries (
   Boost::serialization
   sdsl )
 
-# add_executable(test src/main.cpp)
+add_executable(test src/main.cpp)
 
 # target_link_libraries(test ${Boost_LIBRARIES})
 

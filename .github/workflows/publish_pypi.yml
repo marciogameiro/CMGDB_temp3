@@ -50,14 +50,14 @@ jobs:
           toolset: msvc
         if: runner.os == 'Windows'
 
-      - name: Install boost on Linux
-        uses: MarkusJx/install-boost@v2.1.0
-        id: install-boost
-        with:
-          boost_version: 1.78.0
-          platform_version: 20.04
-          toolset: gcc
-        if: runner.os == 'Linux'
+      # - name: Install boost on Linux
+      #   uses: MarkusJx/install-boost@v2.1.0
+      #   id: install-boost
+      #   with:
+      #     boost_version: 1.78.0
+      #     platform_version: 20.04
+      #     toolset: gcc
+      #   if: runner.os == 'Linux'
 
       - name: Install libraries on Windows
         run: |
@@ -78,6 +78,7 @@ jobs:
       - name: Install libraries on Linux
         run: |
           sudo apt-get update
+          sudo apt-get install libboost-all-dev
           sudo apt-get install libeigen3-dev
           sudo apt-get install libgmp-dev
           sudo apt-get install libsdsl3
@@ -101,9 +102,9 @@ jobs:
         env:
           CIBW_BUILD: cp${{ matrix.python }}-*
           CIBW_ARCHS_WINDOWS: auto64
-          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+#          BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
           # CMAKE_TOOLCHAIN_FILE: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
-          CIBW_ENVIRONMENT: BOOST_ROOT="${{ steps.install-boost.outputs.BOOST_ROOT }}"
+#          CIBW_ENVIRONMENT: BOOST_ROOT="${{ steps.install-boost.outputs.BOOST_ROOT }}"
           CIBW_ENVIRONMENT_LINUX: Boost_ARCHITECTURE=-x64
           # CIBW_ENVIRONMENT: "BOOST_INCLUDE=${BOOST_ROOT}"
           # CIBW_ENVIRONMENT: Boost_INCLUDE_DIR=${BOOST_ROOT}/include

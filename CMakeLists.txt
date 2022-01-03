@@ -21,7 +21,9 @@ endif(APPLE)
 add_subdirectory(pybind11)
 
 find_package(Boost COMPONENTS chrono thread serialization REQUIRED)
-find_package(gmp REQUIRED)
+
+# CMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
+# find_package(gmp REQUIRED)
 
 message("Debug:")
 message("${Boost_INCLUDE_DIRS}")

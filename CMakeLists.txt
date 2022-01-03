@@ -20,6 +20,8 @@ endif(APPLE)
 
 add_subdirectory(pybind11)
 
+set(Boost_INCLUDE_DIR "/home/runner/work/CMGDB_temp3/CMGDB_temp3/boost/boost/include")
+
 message("Debug:")
 message("BOOST_ROOT IS ${BOOST_ROOT}")
 message("Boost_INCLUDE_DIR IS ${Boost_INCLUDE_DIR}")

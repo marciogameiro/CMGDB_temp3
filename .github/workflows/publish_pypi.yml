@@ -100,9 +100,11 @@ jobs:
           python -m cibuildwheel --output-dir wheelhouse
         env:
           CIBW_BUILD: cp${{ matrix.python }}-*
-          # # CIBW_ARCHS_WINDOWS: auto64
+          CIBW_ARCHS_WINDOWS: auto64
           BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
           # CMAKE_TOOLCHAIN_FILE: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
+          CIBW_ENVIRONMENT: BOOST_ROOT="${{ steps.install-boost.outputs.BOOST_ROOT }}"
+          CIBW_ENVIRONMENT_LINUX: Boost_ARCHITECTURE=-x64
           # CIBW_ENVIRONMENT: "BOOST_INCLUDE=${BOOST_ROOT}"
           # CIBW_ENVIRONMENT: Boost_INCLUDE_DIR=${BOOST_ROOT}/include
 

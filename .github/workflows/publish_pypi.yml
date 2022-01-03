@@ -41,7 +41,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
 
-      - name: Install boost for Windows
+      - name: Install boost on Windows
         uses: MarkusJx/install-boost@v2.1.0
         id: install-boost
         with:
@@ -50,20 +50,20 @@ jobs:
           toolset: msvc
         if: runner.os == 'Windows'
 
-      # - name: Install libraries for Windows
-      #   run: |
-      #     vcpkg install eigen3
-      #     vcpkg install gmp
-      #   shell: pwsh
-      #   if: runner.os == 'Windows'
+      - name: Install libraries on Windows
+        run: |
+          ./vcpkg install eigen3
+          ./vcpkg install gmp
+        shell: pwsh
+        if: runner.os == 'Windows'
 
-      # - name: Install the SDSL library
-      #   run: |
-      #     git clone https://github.com/simongog/sdsl-lite.git
-      #     cd sdsl-lite
-      #     ./install.sh
-      #   shell: pwsh
-      #   if: runner.os == 'Windows'
+      - name: Install the SDSL library on on Windows
+        run: |
+          git clone https://github.com/simongog/sdsl-lite.git
+          cd sdsl-lite
+          ./install.sh
+        shell: pwsh
+        if: runner.os == 'Windows'
 
       - name: Configure CMake
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}

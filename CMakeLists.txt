@@ -26,14 +26,14 @@ add_subdirectory(pybind11)
 
 # set(BOOST_ROOT "/usr")
 # set(BOOST_INCLUDEDIR "/usr/include")
-set(BOOST_INCLUDEDIR "/usr/local/include")
+# set(BOOST_INCLUDEDIR "/usr/local/include")
 
 message("Debug:")
 message("BOOST_ROOT IS ${BOOST_ROOT}")
 message("Boost_INCLUDE_DIR IS ${Boost_INCLUDE_DIR}")
 message("Boost_LIBRARIES IS ${Boost_LIBRARIES}")
 
-set(Boost_ARCHITECTURE "-x64")
+# set(Boost_ARCHITECTURE "-x64")
 
 find_package(Boost COMPONENTS chrono thread serialization REQUIRED)
 
@@ -43,7 +43,7 @@ message("Boost_INCLUDE_DIR IS ${Boost_INCLUDE_DIR}")
 message("Boost_LIBRARIES IS ${Boost_LIBRARIES}")
 
 # CMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
-# find_package(gmp REQUIRED)
+find_package(gmp REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
 

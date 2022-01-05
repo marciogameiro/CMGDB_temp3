@@ -120,6 +120,7 @@ jobs:
         env:
           CIBW_BUILD: cp${{ matrix.python }}-*
           CIBW_ARCHS_WINDOWS: auto64
+          # Next line is necessary for Windows to find Boost
           BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
           # CMAKE_TOOLCHAIN_FILE: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
 #          CIBW_ENVIRONMENT: BOOST_ROOT="${{ steps.install-boost.outputs.BOOST_ROOT }}"

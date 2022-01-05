@@ -83,8 +83,18 @@ jobs:
 
       - name: Install libraries on Linux
         run: |
+          curl --progress-bar -L -o boost_1_69_0.tar.gz https://boostorg.jfrog.io/artifactory/main/release/1.69.0/source/boost_1_69_0.tar.gz
+          tar -xzf boost_1_69_0.tar.gz
+          cd boost_1_69_0
+          ./bootstrap.sh
+          ./b2 install -j4 --with-chrono --with-thread --with-serialization --with-date_time --with-atomic
+          # git clone https://github.com/simongog/sdsl-lite.git
+          # cd sdsl-lite
+          # export CFLAGS=-fPIC
+          # export CXXFLAGS=-fPIC
+          # ./install.sh /usr/local/
           sudo apt-get update
-          sudo apt-get install libboost-all-dev
+          # sudo apt-get install libboost-all-dev
           sudo apt-get install libeigen3-dev
           sudo apt-get install libgmp-dev
           sudo apt-get install libsdsl3

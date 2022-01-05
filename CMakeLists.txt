@@ -25,7 +25,8 @@ add_subdirectory(pybind11)
 # set(BOOST_INCLUDEDIR "/home/runner/work/CMGDB_temp3/CMGDB_temp3/boost/boost/include")
 
 # set(BOOST_ROOT "/usr")
-set(BOOST_INCLUDEDIR "/usr/include")
+# set(BOOST_INCLUDEDIR "/usr/include")
+set(BOOST_INCLUDEDIR "/usr/local/include")
 
 message("Debug:")
 message("BOOST_ROOT IS ${BOOST_ROOT}")

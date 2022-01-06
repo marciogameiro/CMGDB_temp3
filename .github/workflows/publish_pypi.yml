@@ -70,7 +70,7 @@ jobs:
         run: |
           vcpkg install eigen3
           vcpkg install gmp
-          vcpkg integrate install
+          # vcpkg integrate install
           # Get-ChildItem -Path D:\ -Include gmpxx.* -File -Recurse
           # Get-ChildItem -Path C:\ -Include gmpxx.* -File -Recurse
         shell: pwsh

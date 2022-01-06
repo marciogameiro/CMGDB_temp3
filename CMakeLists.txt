@@ -43,7 +43,8 @@ message("Boost_INCLUDE_DIR IS ${Boost_INCLUDE_DIR}")
 message("Boost_LIBRARIES IS ${Boost_LIBRARIES}")
 
 # CMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
-find_package(gmp REQUIRED)
+# C:/vcpkg/packages/gmp_x86-windows/debug/lib/pkgconfig/gmpxx.pc
+# find_package(gmp REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
@@ -52,6 +53,7 @@ if(Boost_FOUND)
 endif()
 
 include_directories (
+  C:/vcpkg/packages/gmp_x86-windows/debug/lib/pkgconfig
   /usr/local/include
   ${Boost_INCLUDE_DIR}
   ${CMAKE_SOURCE_DIR}/include

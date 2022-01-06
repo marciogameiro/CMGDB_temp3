@@ -44,7 +44,7 @@ message("Boost_LIBRARIES IS ${Boost_LIBRARIES}")
 
 # CMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake
 
-CMAKE_TOOLCHAIN_FILE=C:/vcpkg/packages/gmp_x86-windows/debug/lib/pkgconfig
+set(GMP_ROOT "C:/vcpkg/packages/gmp_x86-windows/debug/lib/pkgconfig")
 find_package(gmp REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
